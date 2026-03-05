@@ -1,0 +1,4943 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation pour apprendre la cybersécurité">
+      
+      
+      
+      
+        <link rel="prev" href="../015-histoire-cryptographie/">
+      
+      
+        <link rel="next" href="../../003-exemple-algo-chiffrement/001-aes/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Types de cryptographie - Learn security</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#les-types-de-cryptographie" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Learn security" class="md-header__button md-logo" aria-label="Learn security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learn security
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Types de cryptographie
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Partager" aria-label="Partager" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../01-environnement/001-Introduction/001-before-starting/" class="md-tabs__link">
+          
+  
+  
+  1. L'environnement
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../02-attaques/001-introduction-attaques/001-la-realite-des-attaques/" class="md-tabs__link">
+          
+  
+  
+  2. Les attaques
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../03-protections/001-principes-fondamentaux/001-limperatif-de-la-defense/" class="md-tabs__link">
+          
+  
+  
+  3. Les protections
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../001-introduction-cryptographie/001-proteger-les-communications/" class="md-tabs__link">
+          
+  
+  
+  4. Cryptographie
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../demo/demo-hash/" class="md-tabs__link">
+          
+  
+  
+  Démonstrations
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learn security" class="md-nav__button md-logo" aria-label="Learn security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learn security
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. L'environnement
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. L'environnement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/001-before-starting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avant de commencer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/008-securite-enjeux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enjeux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/010-systeme-information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/015-securite-informatique-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Définition sécurité informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/016-tp-risque-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Risques SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/020-pourquoi-la-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pourquoi la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/025-les-causes-dinsecurite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les causes d'insécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cadre juridique
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cadre juridique
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/003-cadre-juridique/040-cadre-juridique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Un cadre juridique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/003-cadre-juridique/050-risques-juridique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les risques juridiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métiers de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Métiers de la sécurité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/004-metiers-securite/050-metier-de-la-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métier de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/004-metiers-securite/051-parcours-et-certification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parcours et certifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gouvernance SI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gouvernance SI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/005-gouvernance-si/060-gouvernance-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gouvernance SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/005-gouvernance-si/responsabilite-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Responsabilités SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/006-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Les attaques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Les attaques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction aux attaques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction aux attaques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/001-la-realite-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La réalité des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/003-ingenierie-social/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingénierie sociale
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/020-origine-et-cible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Origine et cible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/025-les-objectifs-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectifs des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/026-acteurs-menacants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acteurs menaçants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vecteurs et vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vecteurs et vulnérabilités
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/030-les-vecteurs-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les vecteurs d'attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/035-les-vuln%C3%A9rabilit%C3%A9es/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/037-demo-vulnerabilite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP et démo vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/038-tp-vuln-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP vulnérabilité IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types et méthodologies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Types et méthodologies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/040-methodologie-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodologie des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/042-reverse-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/045-osint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSINT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin (attaques)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Aller plus loin (attaques)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/004-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/004-aller-plus-loin/101-veille-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Veille en sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Les protections
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Les protections
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principes fondamentaux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Principes fondamentaux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/001-principes-fondamentaux/001-limperatif-de-la-defense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'impératif de la défense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/001-principes-fondamentaux/010-principes-fondamentaux-de-la-defense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principes de la défense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des risques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestion des risques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/002-gestion-risques/030-gestion-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/002-gestion-risques/031-tp-evaluation-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Évaluation des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/002-gestion-risques/032-tp-traitement-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Traitement des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/002-gestion-risques/035-methode-de-gestion-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodes de gestion des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité des systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sécurité des systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/003-securite-systemes/043-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/003-securite-systemes/044-systeme-d%27exploitation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systèmes d'exploitation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/003-securite-systemes/045-mots-de-passe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mots de passe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/003-securite-systemes/048-securite-acces-firewall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pare-feu, WAF, Proxy, NAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/003-securite-systemes/049-reseaux-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réseaux et sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conformité et réglementation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Conformité et réglementation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/004-conformite-reglementaire/050-rgpd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGPD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/004-conformite-reglementaire/060-famille-des-normes-iso-2700/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Normes ISO 27000
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/004-conformite-reglementaire/065-ccpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CCPA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/004-conformite-reglementaire/070-autres-lois/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autres lois
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests et validation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tests et validation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/005-tests-validation/046-bug-bounty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bug bounty
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/005-tests-validation/047-tests-intrusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intrusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surveillance et incident
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surveillance et incident
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/006-surveillance-incident/070-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/006-surveillance-incident/080-incident-et-reponse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident et réponse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../03-protections/007-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin (protections)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Cryptographie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Cryptographie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../001-introduction-cryptographie/001-proteger-les-communications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protéger les communications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../001-introduction-cryptographie/010-concepts-de-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Histoire et types
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Histoire et types
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../015-histoire-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Histoire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de cryptographie
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-symetrique-cle-secrete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie symétrique (Clé Secrète)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie symétrique (Clé Secrète)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-asymetrique-cle-publique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie asymétrique (Clé Publique)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie asymétrique (Clé Publique)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cas d&#39;Utilisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple-concret-avec-des-nombres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple concret avec des nombres
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctions-de-hachage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctions de Hachage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fonctions de Hachage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-essentielles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés Essentielles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-hybride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie Hybride
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie Hybride">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faire-son-propre-algo-de-cryptographie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faire son propre algo de cryptographie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Faire son propre algo de cryptographie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonctionnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cles-de-chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clés de chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite-de-lalgorithme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité de l'algorithme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-avec-les-standards-modernes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison avec les standards modernes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithmes de chiffrement
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithmes de chiffrement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-exemple-algo-chiffrement/001-aes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AES
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-exemple-algo-chiffrement/002-rsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithmes de hachage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithmes de hachage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-exemple-algo-hash/001-md5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MD5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-exemple-algo-hash/002-sha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SHA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-exemple-algo-hash/003-bcrypt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bcrypt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-exemple-algo-hash/004-argon2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Argon2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications et méthodes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications et méthodes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../005-applications-methodes/030-applications-de-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../005-applications-methodes/035-methodes-authentification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodes d'authentification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../005-applications-methodes/0-60-tp-cryptographie-simple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Cryptographie simple
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Défis et tendances
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Défis et tendances
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../006-defis-tendances/030-attaque-sur-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attaques sur la cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../006-defis-tendances/040-defis-de-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Défis de la cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../006-defis-tendances/099-blockchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blockchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Démonstrations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Démonstrations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-hash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hash
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-rsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSA (OpenSSL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-iptables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    iptables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-nmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-reverse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-ftp-trame/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FTP trame (Wireshark)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-symetrique-cle-secrete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie symétrique (Clé Secrète)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie symétrique (Clé Secrète)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-asymetrique-cle-publique" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie asymétrique (Clé Publique)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie asymétrique (Clé Publique)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cas d&#39;Utilisation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exemple-concret-avec-des-nombres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemple concret avec des nombres
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fonctions-de-hachage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctions de Hachage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fonctions de Hachage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proprietes-essentielles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propriétés Essentielles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#algorithmes-courants_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algorithmes Courants
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cryptographie-hybride" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cryptographie Hybride
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cryptographie Hybride">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avantages_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avantages
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inconvenients_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inconvénients
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cas-dutilisation_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cas d'Utilisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#faire-son-propre-algo-de-cryptographie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Faire son propre algo de cryptographie
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Faire son propre algo de cryptographie">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fonctionnement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fonctionnement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cles-de-chiffrement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clés de chiffrement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#securite-de-lalgorithme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sécurité de l'algorithme
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparaison-avec-les-standards-modernes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparaison avec les standards modernes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="les-types-de-cryptographie">Les Types de Cryptographie<a class="headerlink" href="#les-types-de-cryptographie" title="Permanent link">&para;</a></h1>
+<p>La cryptographie se divise en plusieurs catégories, chacune ayant ses propres caractéristiques, algorithmes et applications. </p>
+<p>Comprendre ces différents types est essentiel pour choisir la méthode de protection la plus appropriée pour une situation donnée. Ce chapitre explore les principaux types de cryptographie, leurs avantages et leurs inconvénients.</p>
+<hr />
+<h2 id="cryptographie-symetrique-cle-secrete">Cryptographie symétrique (Clé Secrète)<a class="headerlink" href="#cryptographie-symetrique-cle-secrete" title="Permanent link">&para;</a></h2>
+<p>La cryptographie symétrique utilise la même clé pour chiffrer et déchiffrer les données. L'expéditeur et le destinataire doivent partager la clé secrète en toute sécurité avant de pouvoir communiquer.</p>
+<p><img alt="" src="../../../images/cle-secrete.png" /></p>
+<h3 id="avantages">Avantages<a class="headerlink" href="#avantages" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Rapidité :</strong> Les algorithmes symétriques sont généralement plus rapides que les algorithmes asymétriques.</li>
+<li><strong>Simplicité :</strong> Les algorithmes sont plus simples à mettre en œuvre et à comprendre.</li>
+</ul>
+<h3 id="inconvenients">Inconvénients<a class="headerlink" href="#inconvenients" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Distribution des Clés :</strong> La nécessité de partager la clé secrète de manière sécurisée est un défi majeur.</li>
+<li><strong>Gestion des Clés :</strong> La gestion des clés devient complexe dans les environnements avec de nombreux participants.</li>
+</ul>
+<h3 id="algorithmes-courants">Algorithmes Courants<a class="headerlink" href="#algorithmes-courants" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>AES (Advanced Encryption Standard) :</strong> L'un des algorithmes les plus utilisés aujourd'hui, offrant une excellente sécurité et performance.</li>
+<li><strong>DES (Data Encryption Standard) :</strong> Plus ancien et moins sécurisé que l'AES, mais toujours utilisé dans certains systèmes hérités.</li>
+<li><strong>3DES (Triple DES) :</strong> Une amélioration de DES, appliquant l'algorithme DES trois fois pour renforcer la sécurité.</li>
+<li><strong>Blowfish et Twofish :</strong> Algorithmes rapides et sécurisés, souvent utilisés dans les applications open source.</li>
+</ul>
+<h3 id="cas-dutilisation">Cas d'Utilisation<a class="headerlink" href="#cas-dutilisation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Chiffrement des fichiers et des disques durs.</li>
+<li>Chiffrement des communications sur les réseaux privés.</li>
+<li>Protection des données stockées dans les bases de données.</li>
+</ul>
+<hr />
+<h2 id="cryptographie-asymetrique-cle-publique">Cryptographie asymétrique (Clé Publique)<a class="headerlink" href="#cryptographie-asymetrique-cle-publique" title="Permanent link">&para;</a></h2>
+<p><img alt="" src="../../../images/asymetrique.png" /></p>
+<p>La cryptographie asymétrique utilise une paire de clés : une clé publique, qui peut être partagée avec tout le monde, et une clé privée, qui doit être gardée secrète par son propriétaire. La clé publique est utilisée pour chiffrer les données, et la clé privée est utilisée pour les déchiffrer.</p>
+<p>Analogie: </p>
+<p>Le chiffrement asymétrique peut être expliqué à l'aide de l'analogie de la <strong>boîte aux lettres</strong> :</p>
+<ul>
+<li>Imaginez une boîte aux lettres spéciale avec deux fentes : une pour déposer le courrier (la clé publique) et une pour le récupérer (la clé privée).</li>
+<li>La fente de dépôt (clé publique) est ouverte à tous. N'importe qui peut y glisser une lettre, comme un facteur déposant du courrier.</li>
+<li>La fente de récupération (clé privée) est verrouillée. Seul le propriétaire de la boîte possède la clé pour l'ouvrir et récupérer les lettres.</li>
+<li>
+<p>Une fois qu'une lettre est déposée dans la boîte, elle ne peut plus être récupérée par la fente de dépôt. Seul le propriétaire, avec sa clé privée, peut accéder au contenu.</p>
+</li>
+<li>
+<p>Cette analogie illustre les principes clés du chiffrement asymétrique :</p>
+</li>
+<li>La clé publique (fente de dépôt) peut être partagée librement, permettant à quiconque d'envoyer des messages sécurisés.</li>
+<li>La clé privée (clé de la fente de récupération) reste secrète, garantissant que seul le destinataire légitime peut lire les messages.</li>
+<li>Une fois le message "déposé" (chiffré), il ne peut être "récupéré" (déchiffré) que par le détenteur de la clé privée.</li>
+</ul>
+<h3 id="avantages_1">Avantages<a class="headerlink" href="#avantages_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Facilité de Distribution des Clés :</strong> La clé publique peut être partagée sans risque, ce qui simplifie la distribution des clés.</li>
+<li><strong>Authentification et Non-Répudiation :</strong> Permet de signer numériquement les documents, garantissant l'authenticité et la non-répudiation.</li>
+</ul>
+<h3 id="inconvenients_1">Inconvénients<a class="headerlink" href="#inconvenients_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Lenteur :</strong> Les algorithmes asymétriques sont généralement plus lents que les algorithmes symétriques.</li>
+<li><strong>Complexité :</strong> Les algorithmes sont plus complexes à mettre en œuvre et à comprendre.</li>
+</ul>
+<h3 id="algorithmes-courants_1">Algorithmes Courants<a class="headerlink" href="#algorithmes-courants_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>RSA (Rivest-Shamir-Adleman) :</strong> L'un des algorithmes asymétriques les plus utilisés, offrant une bonne sécurité et flexibilité.</li>
+<li><strong>ECC (Elliptic Curve Cryptography) :</strong> Un algorithme plus récent offrant une sécurité comparable à RSA avec des clés plus petites, ce qui le rend plus efficace pour les appareils mobiles.</li>
+<li><strong>DSA (Digital Signature Algorithm) :</strong> Utilisé pour la création de signatures numériques.</li>
+</ul>
+<h3 id="cas-dutilisation_1">Cas d'Utilisation<a class="headerlink" href="#cas-dutilisation_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sécurisation des communications sur Internet (HTTPS).</li>
+<li>Création de signatures numériques pour authentifier les documents.</li>
+</ul>
+<h4 id="exemple-concret-avec-des-nombres">Exemple concret avec des nombres<a class="headerlink" href="#exemple-concret-avec-des-nombres" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Les clés</strong></li>
+<li>Clé publique : Multiplier par 3</li>
+<li>
+<p>Clé privée : Diviser par 3</p>
+</li>
+<li>
+<p><strong>Chiffrement (avec la clé publique)</strong></p>
+</li>
+<li>Message original : 5</li>
+<li>Application de la clé publique : 5 × 3 = 15</li>
+<li>
+<p>Message chiffré : 15</p>
+</li>
+<li>
+<p><strong>Déchiffrement (avec la clé privée)</strong></p>
+</li>
+<li>Message chiffré : 15</li>
+<li>Application de la clé privée : 15 ÷ 3 = 5</li>
+<li>
+<p>Message original : 5</p>
+</li>
+<li>
+<p><strong>Pourquoi c'est sécurisé ?</strong></p>
+</li>
+<li>Tout le monde peut multiplier par 3 (clé publique)</li>
+<li>Mais diviser précisément par 3 nécessite de connaître l'opération inverse (clé privée)</li>
+</ol>
+<p>Note : Cet exemple est très simplifié. Les vrais algorithmes comme RSA utilisent des mathématiques beaucoup plus complexes, mais le principe de base reste le même : une opération facile à faire dans un sens (clé publique) mais difficile à inverser sans information secrète (clé privée).</p>
+<hr />
+<h2 id="fonctions-de-hachage">Fonctions de Hachage<a class="headerlink" href="#fonctions-de-hachage" title="Permanent link">&para;</a></h2>
+<p>Le développement de fonctions de hachage cryptographiques comme SHA-256 et SHA-3 a permis de vérifier l'intégrité des données et de stocker les mots de passe de manière sécurisée.</p>
+<p><strong>Qu'est-ce qu'un hachage ?</strong></p>
+<p>Une fonction de hachage est un algorithme qui prend une donnée d'entrée (appelée message) de taille arbitraire et la transforme en une sortie de taille fixe, appelée valeur de hachage ou empreinte numérique. </p>
+<p>Par exemple, un texte ou un fichier peut être converti en une chaîne alphanumérique de longueur fixe (comme 256 bits pour SHA-256). 
+Cette empreinte est unique pour chaque donnée d'entrée distincte.</p>
+<p>Les fonctions de hachage prennent des données en entrée et produisent une empreinte numérique de taille fixe (appelée haché). Les fonctions de hachage sont utilisées pour vérifier l'intégrité des données, stocker les mots de passe de manière sécurisée, et créer des signatures numériques.</p>
+<p><img alt="" src="../../../images/fonction-hash.png" /></p>
+<p>Dans le contexte des fonctions de hachage cryptographiques, une préimage fait référence à l'entrée originale (ou message) qui, lorsqu'elle est passée à travers la fonction de hachage, produit une valeur de hachage spécifique.</p>
+<h3 id="proprietes-essentielles">Propriétés Essentielles<a class="headerlink" href="#proprietes-essentielles" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Unidirectionnalité:</strong> Il doit être pratiquement impossible de retrouver les données d'origine à partir du haché.</li>
+<li><strong>Résistance aux Collisions:</strong> Il doit être difficile de trouver deux entrées différentes qui produisent le même haché.</li>
+</ul>
+<h3 id="algorithmes-courants_2">Algorithmes Courants<a class="headerlink" href="#algorithmes-courants_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>SHA-256 (Secure Hash Algorithm 256-bit) :</strong> L'un des algorithmes les plus utilisés, offrant une bonne sécurité et performance.</li>
+<li><strong>SHA-3 (Secure Hash Algorithm 3) :</strong> Un algorithme plus récent conçu pour remplacer SHA-256 en cas de vulnérabilité.</li>
+<li><strong>MD5 (Message Digest Algorithm 5) :</strong> Plus ancien et moins sécurisé que SHA-256, il est déconseillé de l'utiliser pour les applications critiques.</li>
+</ul>
+<h3 id="cas-dutilisation_2">Cas d'Utilisation<a class="headerlink" href="#cas-dutilisation_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Vérification de l'intégrité des fichiers téléchargés.</li>
+<li>Stockage sécurisé des mots de passe.</li>
+<li>Création de signatures numériques.</li>
+</ul>
+<p><strong>Exemple: mots de passe dans un site web:</strong> </p>
+<ul>
+<li>Inscription : Lorsqu'un utilisateur crée un compte, il fournit un mot de passe. Ce mot de passe est passé dans l'algorithme de hachage qui produit une empreinte unique (le hash).</li>
+<li>Stockage : Le site web stocke cette empreinte dans sa base de données, mais pas le mot de passe original.</li>
+<li>Connexion : Quand l'utilisateur revient et entre son mot de passe pour se connecter, le site web passe à nouveau ce mot de passe dans le méme algo de hachage.</li>
+<li>Vérification : Le site compare la nouvelle empreinte avec celle stockée dans la base de données. Si elles correspondent, l'accès est accordé.</li>
+</ul>
+<p><strong>Pourquoi ne peut-on pas retrouver le mot de passe à partir du hash ?</strong></p>
+<ul>
+<li>Fonction à sens unique : Les algorithmes de hachage sont conçus pour être unidirectionnels. Il n'existe pas de "formule inverse" pour revenir en arrière.</li>
+<li>Perte d'information : Le processus de hachage condense délibérément l'information, rendant impossible la reconstruction du mot de passe original.</li>
+<li>Résistance aux collisions : Même si deux mots de passe différents peuvent théoriquement produire le même hash (une collision), les algorithmes modernes rendent cela extrêmement improbable</li>
+</ul>
+<p><strong>Le sel, un element de sécurité en plus</strong></p>
+<p>Le salage est un processus par lequel des données aléatoires sont ajoutées à une entrée avant qu’elle ne soit traitée par un algorithme de hachage.</p>
+<p><img alt="" src="../../../images/hash-sel.png" /></p>
+<p>Exemple d'algorithmes de hachage qui intègrent le sel par défaut :</p>
+<ul>
+<li>
+<p><strong>bcrypt</strong>: Un algorithme de hachage adaptatif conçu spécifiquement pour le stockage sécurisé des mots de passe. Il génère automatiquement un sel aléatoire et l'intègre dans la chaîne de hachage résultante. bcrypt permet d'ajuster le facteur de coût pour ralentir intentionnellement le processus de hachage, le rendant très résistant aux attaques par force brute</p>
+</li>
+<li>
+<p><strong>Argon2</strong>: intègre automatiquement un sel dans son processus et permet de paramétrer la mémoire utilisée, le temps de calcul et le degré de parallélisme, offrant ainsi une flexibilité et une sécurité accrues</p>
+</li>
+</ul>
+<hr />
+<h2 id="cryptographie-hybride">Cryptographie Hybride<a class="headerlink" href="#cryptographie-hybride" title="Permanent link">&para;</a></h2>
+<p>La cryptographie hybride combine les avantages de la cryptographie symétrique et asymétrique. Elle utilise la cryptographie asymétrique pour échanger une clé secrète, puis utilise la cryptographie symétrique pour chiffrer les données.</p>
+<h3 id="avantages_2">Avantages<a class="headerlink" href="#avantages_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Sécurité :</strong> Bénéficie de la sécurité de la cryptographie asymétrique pour l'échange de clés.</li>
+<li><strong>Performance :</strong> Utilise la cryptographie symétrique pour le chiffrement des données, ce qui est plus rapide.</li>
+</ul>
+<h3 id="inconvenients_2">Inconvénients<a class="headerlink" href="#inconvenients_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Complexité :</strong> Plus complexe à mettre en œuvre que la cryptographie symétrique ou asymétrique seule.</li>
+</ul>
+<h3 id="cas-dutilisation_3">Cas d'Utilisation<a class="headerlink" href="#cas-dutilisation_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Sécurisation des communications sur Internet (TLS/SSL).</li>
+<li>Chiffrement des emails (PGP/GPG).</li>
+</ul>
+<h2 id="faire-son-propre-algo-de-cryptographie">Faire son propre algo de cryptographie<a class="headerlink" href="#faire-son-propre-algo-de-cryptographie" title="Permanent link">&para;</a></h2>
+<p>Il est fortement déconseillé d'utiliser des algorithmes de cryptographie "maison" en production. Les algorithmes standards (AES, RSA, etc.) ont été rigoureusement testés par la communauté cryptographique. Cependant, comprendre comment fonctionne un algorithme simple peut être instructif.</p>
+<h4 id="fonctionnement">Fonctionnement<a class="headerlink" href="#fonctionnement" title="Permanent link">&para;</a></h4>
+<p>Cryptographie avec la suite de Fibbonachi</p>
+<p><img alt="" src="../../../images/suite-fibbo.png" /></p>
+<ol>
+<li><strong>Préparation</strong></li>
+<li>Choisir une position de départ dans la suite (ex: position 5)</li>
+<li>
+<p>Les nombres suivants serviront de "clé de chiffrement"</p>
+</li>
+<li>
+<p><strong>Exemple de chiffrement</strong></p>
+</li>
+<li>Message : "HELLO"</li>
+<li>Position de départ : 5 (correspond au nombre 5 dans la suite)</li>
+<li>
+<p>Pour chaque lettre :</p>
+<ul>
+<li>H : décalage de 5 positions</li>
+<li>E : décalage de 8 positions</li>
+<li>L : décalage de 13 positions</li>
+<li>L : décalage de 21 positions</li>
+<li>O : décalage de 34 positions</li>
+</ul>
+</li>
+<li>
+<p><strong>Visualisation</strong>
+   <div class="highlight"><pre><span></span><code>Message  : H    E    L    L    O
+Décalage : 5    8    13   21   34
+Résultat : M    M    Y    G    M
+</code></pre></div></p>
+</li>
+<li>
+<p><strong>Déchiffrement</strong></p>
+</li>
+<li>Pour retrouver le message original, on effectue l'opération inverse :</li>
+<li>On soustrait le décalage au lieu de l'ajouter
+   <div class="highlight"><pre><span></span><code>Chiffré  : M    M    Y    G    M
+Décalage : 5    8    13   21   34
+Original : H    E    L    L    O
+</code></pre></div></li>
+</ol>
+<p>Exemple détaillé :
+   - M (position -5) → H
+   - M (position -8) → E
+   - Y (position -13) → L
+   - G (position -21) → L
+   - M (position -34) → O</p>
+<p>Note : Pour déchiffrer, il est crucial de :
+- Connaître la position de départ (ici 5)
+- Reconstruire la même suite de Fibonacci
+- Appliquer les décalages en sens inverse</p>
+<p>Il s'agit d'un <strong>algorithme de chiffrement symétrique</strong> car la même information est utilisée pour chiffrer et déchiffrer.</p>
+<h4 id="cles-de-chiffrement">Clés de chiffrement<a class="headerlink" href="#cles-de-chiffrement" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Clé secrète</strong></li>
+<li>La position de départ dans la suite de Fibonacci (ici 5)</li>
+<li>Cette information doit rester secrète et être partagée uniquement entre l'émetteur et le récepteur</li>
+<li>
+<p>C'est la clé principale qui permet le chiffrement et le déchiffrement</p>
+</li>
+<li>
+<p><strong>Information publique</strong></p>
+</li>
+<li>La suite de Fibonacci elle-même est publique et connue de tous</li>
+<li>L'algorithme de chiffrement/déchiffrement peut être connu</li>
+<li>Le message chiffré peut être intercepté</li>
+</ol>
+<h4 id="securite-de-lalgorithme">Sécurité de l'algorithme<a class="headerlink" href="#securite-de-lalgorithme" title="Permanent link">&para;</a></h4>
+<ol>
+<li><strong>Forces</strong></li>
+<li>Simple à comprendre et à implémenter</li>
+<li>
+<p>Les nombres de Fibonacci grandissent rapidement, créant des décalages importants</p>
+</li>
+<li>
+<p><strong>Faiblesses</strong></p>
+</li>
+<li>Nombre limité de positions de départ utiles</li>
+<li>La suite de Fibonacci est prévisible</li>
+<li>Vulnérable à l'analyse fréquentielle</li>
+<li>Une fois la position de départ trouvée, tout le système est compromis</li>
+</ol>
+<h4 id="comparaison-avec-les-standards-modernes">Comparaison avec les standards modernes<a class="headerlink" href="#comparaison-avec-les-standards-modernes" title="Permanent link">&para;</a></h4>
+<p>Par rapport à un algorithme symétrique moderne comme AES :</p>
+<ul>
+<li>
+<p>AES utilise une clé de 128, 192 ou 256 bits</p>
+</li>
+<li>
+<p>Notre algorithme Fibonacci n'utilise qu'un nombre (position) comme clé</p>
+</li>
+<li>
+<p>AES utilise des opérations complexes (SubBytes, ShiftRows, MixColumns)</p>
+</li>
+<li>
+<p>Notre algorithme utilise un simple décalage basé sur une suite mathématique</p>
+</li>
+</ul>
+<p>Il existe plusieurs types de cryptographie, chacun ayant ses propres avantages, inconvénients et applications. </p>
+<p>Le choix du type de cryptographie approprié dépend des besoins spécifiques en matière de sécurité, de performance et de complexité. </p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.highlight", "search.share", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

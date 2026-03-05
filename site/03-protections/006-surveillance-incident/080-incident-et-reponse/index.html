@@ -1,0 +1,4825 @@
+
+<!doctype html>
+<html lang="fr" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation pour apprendre la cybersécurité">
+      
+      
+      
+      
+        <link rel="prev" href="../070-monitoring/">
+      
+      
+        <link rel="next" href="../../007-aller-plus-loin/100-aller-plus-loin/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Incident et réponse - Learn security</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#incident-et-reponse" class="md-skip">
+          Aller au contenu
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="En-tête">
+    <a href="../../.." title="Learn security" class="md-header__button md-logo" aria-label="Learn security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Learn security
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Incident et réponse
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Rechercher" placeholder="Rechercher" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Recherche">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Partager" aria-label="Partager" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Effacer" aria-label="Effacer" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initialisation de la recherche
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Onglets" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Accueil
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../01-environnement/001-Introduction/001-before-starting/" class="md-tabs__link">
+          
+  
+  
+  1. L'environnement
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../02-attaques/001-introduction-attaques/001-la-realite-des-attaques/" class="md-tabs__link">
+          
+  
+  
+  2. Les attaques
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../001-principes-fondamentaux/001-limperatif-de-la-defense/" class="md-tabs__link">
+          
+  
+  
+  3. Les protections
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../04-cryptographie/001-introduction-cryptographie/001-proteger-les-communications/" class="md-tabs__link">
+          
+  
+  
+  4. Cryptographie
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../demo/demo-hash/" class="md-tabs__link">
+          
+  
+  
+  Démonstrations
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Learn security" class="md-nav__button md-logo" aria-label="Learn security" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Learn security
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accueil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. L'environnement
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. L'environnement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/001-before-starting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Avant de commencer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/008-securite-enjeux/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enjeux
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/010-systeme-information/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Système d'information
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/015-securite-informatique-definition/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Définition sécurité informatique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/016-tp-risque-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Risques SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/020-pourquoi-la-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pourquoi la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/001-Introduction/025-les-causes-dinsecurite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les causes d'insécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cadre juridique
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Cadre juridique
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/003-cadre-juridique/040-cadre-juridique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Un cadre juridique
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/003-cadre-juridique/050-risques-juridique/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les risques juridiques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métiers de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Métiers de la sécurité
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/004-metiers-securite/050-metier-de-la-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Métier de la sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/004-metiers-securite/051-parcours-et-certification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parcours et certifications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gouvernance SI
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gouvernance SI
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/005-gouvernance-si/060-gouvernance-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gouvernance SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/005-gouvernance-si/responsabilite-si/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Responsabilités SI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01-environnement/006-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Les attaques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. Les attaques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction aux attaques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction aux attaques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/001-la-realite-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La réalité des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/003-ingenierie-social/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ingénierie sociale
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/020-origine-et-cible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Origine et cible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/025-les-objectifs-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Objectifs des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/001-introduction-attaques/026-acteurs-menacants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acteurs menaçants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vecteurs et vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Vecteurs et vulnérabilités
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/030-les-vecteurs-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les vecteurs d'attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/035-les-vuln%C3%A9rabilit%C3%A9es/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/037-demo-vulnerabilite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP et démo vulnérabilités
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/002-vecteurs-vulnerabilites/038-tp-vuln-ia/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP vulnérabilité IA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types et méthodologies
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Types et méthodologies
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/040-methodologie-des-attaques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodologie des attaques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/042-reverse-engineering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse Engineering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/003-types-methodologies/045-osint/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSINT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin (attaques)
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Aller plus loin (attaques)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/004-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02-attaques/004-aller-plus-loin/101-veille-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Veille en sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Les protections
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. Les protections
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principes fondamentaux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Principes fondamentaux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../001-principes-fondamentaux/001-limperatif-de-la-defense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    L'impératif de la défense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../001-principes-fondamentaux/010-principes-fondamentaux-de-la-defense/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principes de la défense
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gestion des risques
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Gestion des risques
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../002-gestion-risques/030-gestion-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Les risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../002-gestion-risques/031-tp-evaluation-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Évaluation des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../002-gestion-risques/032-tp-traitement-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Traitement des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../002-gestion-risques/035-methode-de-gestion-des-risques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodes de gestion des risques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sécurité des systèmes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sécurité des systèmes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-securite-systemes/043-antivirus/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Antivirus
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-securite-systemes/044-systeme-d%27exploitation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systèmes d'exploitation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-securite-systemes/045-mots-de-passe/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mots de passe
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-securite-systemes/048-securite-acces-firewall/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pare-feu, WAF, Proxy, NAC
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../003-securite-systemes/049-reseaux-securite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Réseaux et sécurité
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conformité et réglementation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Conformité et réglementation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-conformite-reglementaire/050-rgpd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RGPD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-conformite-reglementaire/060-famille-des-normes-iso-2700/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Normes ISO 27000
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-conformite-reglementaire/065-ccpa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CCPA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../004-conformite-reglementaire/070-autres-lois/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Autres lois
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests et validation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tests et validation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../005-tests-validation/046-bug-bounty/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bug bounty
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../005-tests-validation/047-tests-intrusions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tests d'intrusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Surveillance et incident
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Surveillance et incident
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../070-monitoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Monitoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident et réponse
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Incident et réponse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-definition-dun-incident-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Définition d'un Incident de Sécurité
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cycle-de-vie-de-la-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cycle de Vie de la Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Cycle de Vie de la Réponse aux Incidents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Préparation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-detection-et-analyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Détection et Analyse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-confinement-eradication-et-retablissement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Confinement, Éradication et Rétablissement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-activites-post-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Activités Post-Incident
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-equipe-de-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Équipe de Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-outils-et-technologies-de-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Outils et Technologies de Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-documentation-et-preuves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Documentation et Preuves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-communication-en-situation-de-crise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Communication en Situation de Crise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conformite-reglementaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conformité Réglementaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-simulation-et-exercices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Simulation et Exercices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-automatisation-de-la-reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Automatisation de la Réponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-metriques-et-amelioration-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Métriques et Amélioration Continue
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../007-aller-plus-loin/100-aller-plus-loin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Aller plus loin (protections)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Cryptographie
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    4. Cryptographie
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_1" id="__nav_5_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/001-introduction-cryptographie/001-proteger-les-communications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protéger les communications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/001-introduction-cryptographie/010-concepts-de-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Histoire et types
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Histoire et types
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/002-histoire-types/015-histoire-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Histoire
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/002-histoire-types/020-types-de-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Types de cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithmes de chiffrement
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithmes de chiffrement
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/003-exemple-algo-chiffrement/001-aes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AES
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/003-exemple-algo-chiffrement/002-rsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Algorithmes de hachage
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Algorithmes de hachage
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/004-exemple-algo-hash/001-md5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MD5
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/004-exemple-algo-hash/002-sha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SHA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/004-exemple-algo-hash/003-bcrypt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bcrypt
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/004-exemple-algo-hash/004-argon2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Argon2
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications et méthodes
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Applications et méthodes
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/005-applications-methodes/030-applications-de-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Applications
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/005-applications-methodes/035-methodes-authentification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Méthodes d'authentification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/005-applications-methodes/0-60-tp-cryptographie-simple/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TP Cryptographie simple
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Défis et tendances
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Défis et tendances
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/006-defis-tendances/030-attaque-sur-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Attaques sur la cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/006-defis-tendances/040-defis-de-la-cryptographie/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Défis de la cryptographie
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../04-cryptographie/006-defis-tendances/099-blockchain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blockchain
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Démonstrations
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Démonstrations
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-hash/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hash
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-rsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSA (OpenSSL)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-iptables/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    iptables
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-nmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-reverse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reverse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../demo/demo-ftp-trame/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FTP trame (Wireshark)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table des matières">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table des matières
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-definition-dun-incident-de-securite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Définition d'un Incident de Sécurité
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cycle-de-vie-de-la-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cycle de Vie de la Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Cycle de Vie de la Réponse aux Incidents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Préparation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-detection-et-analyse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Détection et Analyse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-confinement-eradication-et-retablissement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Confinement, Éradication et Rétablissement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-activites-post-incident" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Activités Post-Incident
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-equipe-de-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Équipe de Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-outils-et-technologies-de-reponse-aux-incidents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Outils et Technologies de Réponse aux Incidents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-documentation-et-preuves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Documentation et Preuves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-communication-en-situation-de-crise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Communication en Situation de Crise
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-conformite-reglementaire" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Conformité Réglementaire
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-simulation-et-exercices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Simulation et Exercices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-automatisation-de-la-reponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Automatisation de la Réponse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-metriques-et-amelioration-continue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Métriques et Amélioration Continue
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="incident-et-reponse">Incident et réponse<a class="headerlink" href="#incident-et-reponse" title="Permanent link">&para;</a></h1>
+<p>La cybersécurité n'est pas seulement une question de prévention - les incidents se produisent même dans les organisations les mieux protégées. La capacité à détecter, analyser et répondre efficacement aux incidents de sécurité est devenue une compétence essentielle pour les professionnels de la cybersécurité. Ce chapitre explore les principes fondamentaux de la gestion des incidents et de la réponse, les méthodologies établies, et les meilleures pratiques pour limiter les dommages et restaurer les opérations normales.</p>
+<h2 id="1-definition-dun-incident-de-securite">1. Définition d'un Incident de Sécurité<a class="headerlink" href="#1-definition-dun-incident-de-securite" title="Permanent link">&para;</a></h2>
+<p>Un <strong>incident de sécurité</strong> est un événement qui compromet ou menace de compromettre la confidentialité, l'intégrité ou la disponibilité des systèmes d'information ou des données d'une organisation. </p>
+<ul>
+<li><strong>Exemples d'incidents</strong> :</li>
+<li>Violations de données</li>
+<li>Intrusions dans les systèmes</li>
+<li>Attaques par déni de service (DoS/DDoS)</li>
+<li>Infections par malware (ransomware, virus, etc.)</li>
+<li>Compromission de comptes utilisateurs</li>
+<li>Exfiltration de données sensibles</li>
+<li>Utilisation non autorisée de ressources informatiques</li>
+</ul>
+<h2 id="2-cycle-de-vie-de-la-reponse-aux-incidents">2. Cycle de Vie de la Réponse aux Incidents<a class="headerlink" href="#2-cycle-de-vie-de-la-reponse-aux-incidents" title="Permanent link">&para;</a></h2>
+<p>Le NIST (National Institute of Standards and Technology) définit un <strong>cycle de vie de réponse aux incidents</strong> en quatre phases principales :</p>
+<h3 id="21-preparation">2.1 Préparation<a class="headerlink" href="#21-preparation" title="Permanent link">&para;</a></h3>
+<p>La phase de <strong>préparation</strong> établit les fondements d'une réponse efficace aux incidents avant qu'ils ne surviennent.</p>
+<ul>
+<li><strong>Éléments clés</strong> :</li>
+<li>Développement de politiques et procédures de réponse</li>
+<li>Constitution d'une équipe de réponse aux incidents (CSIRT)</li>
+<li>Formation et sensibilisation du personnel</li>
+<li>Mise en place d'outils et de technologies</li>
+<li>Établissement de communications et coordinations</li>
+<li>Création et maintenance de plans de réponse aux incidents</li>
+<li>Préparation d'un environnement d'analyse forensique</li>
+</ul>
+<h3 id="22-detection-et-analyse">2.2 Détection et Analyse<a class="headerlink" href="#22-detection-et-analyse" title="Permanent link">&para;</a></h3>
+<p>La phase de <strong>détection et analyse</strong> implique l'identification des incidents potentiels et leur analyse pour déterminer leur nature, leur portée et leur impact.</p>
+<ul>
+<li><strong>Processus de détection</strong> :</li>
+<li>Surveillance des alertes des systèmes de sécurité (SIEM, IDS, EDR)</li>
+<li>Analyse des journaux et du trafic réseau</li>
+<li>Signalements internes ou externes</li>
+<li>
+<p>Détection d'anomalies comportementales</p>
+</li>
+<li>
+<p><strong>Analyse préliminaire</strong> :</p>
+</li>
+<li>Évaluation de l'impact et de la criticité</li>
+<li>Classification de l'incident</li>
+<li>Détermination des ressources nécessaires</li>
+<li>Documentation des observations initiales</li>
+<li>Établissement d'une chronologie des événements</li>
+</ul>
+<h3 id="23-confinement-eradication-et-retablissement">2.3 Confinement, Éradication et Rétablissement<a class="headerlink" href="#23-confinement-eradication-et-retablissement" title="Permanent link">&para;</a></h3>
+<p>Cette phase comprend trois étapes critiques pour répondre à l'incident et restaurer les opérations normales.</p>
+<ul>
+<li><strong>Confinement</strong> :</li>
+<li>Isolation des systèmes compromis</li>
+<li>Blocage des adresses IP malveillantes</li>
+<li>Restriction des accès réseau</li>
+<li>Création d'images forensiques des systèmes affectés</li>
+<li>
+<p>Mise en œuvre de stratégies de confinement à court et long terme</p>
+</li>
+<li>
+<p><strong>Éradication</strong> :</p>
+</li>
+<li>Identification et suppression des malwares et backdoors</li>
+<li>Correction des vulnérabilités exploitées</li>
+<li>Réinitialisation des mots de passe compromis</li>
+<li>
+<p>Nettoyage complet de tous les systèmes affectés</p>
+</li>
+<li>
+<p><strong>Rétablissement</strong> :</p>
+</li>
+<li>Restauration sécurisée des systèmes et des données</li>
+<li>Validation de la sécurité des systèmes restaurés</li>
+<li>Retour progressif à la production</li>
+<li>Surveillance accrue des systèmes restaurés</li>
+</ul>
+<h3 id="24-activites-post-incident">2.4 Activités Post-Incident<a class="headerlink" href="#24-activites-post-incident" title="Permanent link">&para;</a></h3>
+<p>Les <strong>activités post-incident</strong> visent à tirer des enseignements de l'incident pour améliorer la posture de sécurité globale.</p>
+<ul>
+<li><strong>Éléments essentiels</strong> :</li>
+<li>Organisation de réunions de retour d'expérience</li>
+<li>Documentation complète de l'incident</li>
+<li>Analyse des causes profondes</li>
+<li>Identification des améliorations nécessaires</li>
+<li>Mise à jour des plans de réponse aux incidents</li>
+<li>Partage d'informations avec les parties prenantes concernées</li>
+</ul>
+<h2 id="3-equipe-de-reponse-aux-incidents">3. Équipe de Réponse aux Incidents<a class="headerlink" href="#3-equipe-de-reponse-aux-incidents" title="Permanent link">&para;</a></h2>
+<p>Une <strong>équipe de réponse aux incidents</strong> (CSIRT - Computer Security Incident Response Team) est essentielle pour coordonner et exécuter les activités de réponse.</p>
+<ul>
+<li><strong>Composition typique</strong> :</li>
+<li><strong>Responsable d'équipe</strong> : Coordonne les efforts et communique avec la direction</li>
+<li><strong>Analystes de sécurité</strong> : Détectent et analysent les incidents</li>
+<li><strong>Experts en forensique numérique</strong> : Collectent et analysent les preuves</li>
+<li><strong>Administrateurs systèmes et réseaux</strong> : Aident au confinement et au rétablissement</li>
+<li><strong>Experts en communication</strong> : Gèrent les communications internes et externes</li>
+<li><strong>Conseillers juridiques</strong> : Assurent la conformité avec les obligations légales</li>
+<li><strong>Représentants des ressources humaines</strong> : Gèrent les incidents impliquant le personnel</li>
+</ul>
+<h2 id="4-outils-et-technologies-de-reponse-aux-incidents">4. Outils et Technologies de Réponse aux Incidents<a class="headerlink" href="#4-outils-et-technologies-de-reponse-aux-incidents" title="Permanent link">&para;</a></h2>
+<p>Plusieurs catégories d'outils sont essentielles pour une réponse efficace aux incidents :</p>
+<ul>
+<li><strong>Détection et surveillance</strong> :</li>
+<li>Systèmes de gestion des événements et des informations de sécurité (SIEM)<ul>
+<li><strong>Splunk Enterprise Security</strong> : Analyse avancée de logs et détection de menaces</li>
+<li><strong>IBM QRadar</strong> : Corrélation d'événements en temps réel</li>
+</ul>
+</li>
+<li>Systèmes de détection/prévention d'intrusion (IDS/IPS)<ul>
+<li><strong>Suricata :</strong> Moteur IDS/IPS open source haute performance</li>
+<li><strong>Snort :</strong> IDS/IPS open source largement utilisé</li>
+<li><strong>Cisco Firepower :</strong> Solution commerciale complète</li>
+<li><strong>Palo Alto Networks IDS :</strong> Fonctionnalités intégrées aux pare-feux</li>
+<li><strong>Darktrace :</strong> Utilise l'IA pour détecter les anomalies réseau</li>
+</ul>
+</li>
+<li>Solutions de détection et réponse des endpoints (EDR)<ul>
+<li><strong>CrowdStrike Falcon :</strong> Plateforme cloud avec IA et machine learning</li>
+<li><strong>SentinelOne :</strong> Protection autonome avec réponse automatisée</li>
+<li><strong>Microsoft Defender for Endpoint :</strong> Intégré à l'écosystème Windows</li>
+<li><strong>Carbon Black (VMware) :</strong> Analyse comportementale avancée</li>
+<li><strong>Sophos Intercept X :</strong> Protection contre les menaces avancées</li>
+</ul>
+</li>
+<li>Analyses comportementales et détection d'anomalies<ul>
+<li><strong>Vectra AI :</strong> Détection basée sur l'IA pour les menaces réseau</li>
+<li><strong>ExtraHop Reveal(x) :</strong> Analyse du trafic réseau en temps réel</li>
+<li><strong>Darktrace Enterprise Immune System :</strong> Modélisation du comportement normal</li>
+<li><strong>Cisco Stealthwatch :</strong> Analyse des flux réseau et détection d'anomalies</li>
+<li><strong>Awake Security :</strong> Analyse comportementale avancée du réseau</li>
+</ul>
+</li>
+<li><strong>Investigation et forensique</strong> :</li>
+<li>Outils d'acquisition d'images disque<ul>
+<li><strong>FTK Imager :</strong> Création d'images forensiques et récupération de données</li>
+<li><strong>EnCase Forensic :</strong> Solution complète d'analyse forensique</li>
+<li><strong>SANS SIFT Workstation :</strong> Distribution Linux avec outils forensiques</li>
+<li><strong>dd/dcfldd :</strong> Utilitaires Linux pour création d'images bit à bit</li>
+<li><strong>X-Ways Forensics :</strong> Outil avancé pour l'analyse forensique</li>
+</ul>
+</li>
+<li>Analyseurs de mémoire volatile<ul>
+<li><strong>Volatility Framework :</strong> Outil open source pour l'analyse de mémoire RAM</li>
+<li><strong>Rekall :</strong> Framework d'analyse de mémoire dérivé de Volatility</li>
+<li><strong>Redline (FireEye) :</strong> Analyse de mémoire et détection de malware</li>
+<li><strong>Magnet RAM Capture :</strong> Outil simple de capture mémoire</li>
+<li><strong>WinPmem/DumpIt :</strong> Utilitaires légers pour acquisition de mémoire</li>
+</ul>
+</li>
+<li>Outils d'analyse de malware<ul>
+<li><strong>Cuckoo Sandbox :</strong> Environnement d'analyse automatisé open source</li>
+<li><strong>VirusTotal :</strong> Service d'analyse de fichiers suspects en ligne</li>
+<li><strong>IDA Pro/Ghidra :</strong> Désassembleurs pour l'analyse de code malveillant</li>
+<li><strong>REMnux :</strong> Distribution Linux spécialisée dans l'analyse de malware</li>
+<li><strong>YARA :</strong> Outil de reconnaissance de patterns pour identifier les malwares</li>
+</ul>
+</li>
+<li>Logiciels d'analyse de logs et de trafic réseau<ul>
+<li><strong>Wireshark :</strong> Analyseur de protocoles réseau open source</li>
+<li><strong>NetworkMiner :</strong> Outil forensique réseau pour capture de paquets</li>
+<li><strong>Zeek (Bro) :</strong> Framework d'analyse et surveillance du trafic réseau</li>
+<li><strong>Moloch (Arkime) :</strong> Système de capture et indexation de paquets à grande échelle</li>
+<li><strong>Graylog :</strong> Gestion et analyse centralisée des logs</li>
+</ul>
+</li>
+<li><strong>Gestion et orchestration</strong> :</li>
+<li>Plateformes de gestion des incidents<ul>
+<li><strong>IBM Resilient :</strong> Plateforme de gestion des incidents et réponse</li>
+<li><strong>TheHive :</strong> Solution open source de gestion des incidents</li>
+<li><strong>RTIR (Request Tracker for Incident Response) :</strong> Système open source</li>
+<li><strong>D3 Security :</strong> Solution spécialisée pour les équipes IR</li>
+<li><strong>ServiceNow SecOps :</strong> Gestion des flux de travail de sécurité</li>
+</ul>
+</li>
+<li>Solutions SOAR (Security Orchestration, Automation and Response)<ul>
+<li><strong>Palo Alto Networks Cortex XSOAR :</strong> Automatisation des réponses</li>
+<li><strong>Splunk Phantom :</strong> Orchestration et automatisation des tâches</li>
+<li><strong>Rapid7 InsightConnect :</strong> Workflows personnalisables d'automatisation</li>
+<li><strong>Swimlane :</strong> Plateforme d'automatisation de la sécurité</li>
+<li><strong>Siemplify (Google) :</strong> Orchestration cloud de la sécurité</li>
+</ul>
+</li>
+<li>Systèmes de ticketing et de suivi<ul>
+<li><strong>Jira Service Management :</strong> Suivi et gestion des incidents</li>
+<li><strong>RT (Request Tracker) :</strong> Système de ticketing flexible open source</li>
+<li><strong>OTRS/((OTRS)) Community Edition :</strong> Plateforme de gestion d'incidents</li>
+<li><strong>Freshservice :</strong> Solution cloud de gestion des services IT</li>
+<li><strong>ManageEngine ServiceDesk Plus :</strong> Outil complet de gestion des incidents</li>
+<li><strong>Gitlab/Github :</strong> Solutions intégré dans le developpement </li>
+</ul>
+</li>
+</ul>
+<h2 id="5-documentation-et-preuves">5. Documentation et Preuves<a class="headerlink" href="#5-documentation-et-preuves" title="Permanent link">&para;</a></h2>
+<p>La <strong>documentation</strong> joue un rôle crucial dans la réponse aux incidents, en particulier si des poursuites judiciaires sont envisagées.</p>
+<ul>
+<li><strong>Bonnes pratiques</strong> :</li>
+<li>Maintenir une chaîne de possession rigoureuse pour les preuves<ul>
+<li>Assure l'admissibilité des preuves en justice</li>
+<li>Démontre que les preuves n'ont pas été altérées ou compromises</li>
+<li>Permet de prouver qui a eu accès aux preuves et quand</li>
+<li>Utilisation de formulaires standardisés de transfert</li>
+<li>Documentation photographique si nécessaire</li>
+<li>Registre des accès aux zones de stockage sécurisées</li>
+</ul>
+</li>
+<li><strong>Documenter toutes les actions entreprises avec horodatage</strong><ul>
+<li>Utilisation d'un système de journalisation centralisé</li>
+<li>Capture d'écran des actions importantes</li>
+<li>Notes détaillées des procédures suivies</li>
+<li>Enregistrement des commandes exécutées</li>
+<li>Documentation des résultats obtenus</li>
+<li>Rapport des anomalies rencontrées</li>
+</ul>
+</li>
+<li><strong>Capturer des copies forensiques des systèmes compromis</strong><ul>
+<li>Création d'images bit-à-bit</li>
+<li>Vérification des sommes de contrôle</li>
+<li>Documentation du matériel utilisé</li>
+<li>Capture de la mémoire volatile (RAM)</li>
+<li>Sauvegarde des configurations système</li>
+<li>Préservation des métadonnées</li>
+</ul>
+</li>
+<li><strong>Préserver les logs et autres preuves volatiles</strong><ul>
+<li>Capture immédiate des logs système</li>
+<li>Sauvegarde des journaux d'applications</li>
+<li>Export des logs de sécurité</li>
+<li>Copie des logs réseau</li>
+<li>Archivage des traces d'audit</li>
+<li>Documentation des processus en cours</li>
+</ul>
+</li>
+<li><strong>Utiliser des outils de hachage pour valider l'intégrité des preuves</strong><ul>
+<li>Calcul des hashes MD5</li>
+<li>Vérification SHA-256</li>
+<li>Documentation des valeurs de hachage</li>
+<li>Double validation avec différents algorithmes</li>
+<li>Stockage sécurisé des valeurs de hachage</li>
+<li>Vérification périodique de l'intégrité</li>
+</ul>
+</li>
+<li><strong>Stocker les preuves de manière sécurisée</strong><ul>
+<li>Utilisation de coffres-forts numériques</li>
+<li>Chiffrement des données sensibles</li>
+<li>Contrôle d'accès strict</li>
+<li>Surveillance environnementale</li>
+<li>Copies de sauvegarde sécurisées</li>
+<li>Procédures de destruction sécurisée</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-communication-en-situation-de-crise">6. Communication en Situation de Crise<a class="headerlink" href="#6-communication-en-situation-de-crise" title="Permanent link">&para;</a></h2>
+<p>La <strong>communication</strong> pendant un incident est essentielle pour coordonner la réponse et gérer les attentes.</p>
+<ul>
+<li><strong>Éléments clés</strong> :</li>
+<li><strong>Plan de communication d'incident préétabli</strong><ul>
+<li>Définition des rôles et responsabilités</li>
+<li>Procédures de notification par niveau de gravité</li>
+<li>Modèles de communication préparés</li>
+<li>Liste des contacts d'urgence</li>
+<li>Processus de validation des communications</li>
+</ul>
+</li>
+<li><strong>Canaux de communication sécurisés hors-bande</strong><ul>
+<li>Systèmes de messagerie chiffrée</li>
+<li>Réseaux alternatifs de secours</li>
+<li>Systèmes de vidéoconférence sécurisés</li>
+<li>Moyens de communication physiques de secours</li>
+</ul>
+</li>
+<li><strong>Points de contact clairement définis</strong><ul>
+<li>Porte-parole officiel désigné</li>
+<li>Coordinateurs par département</li>
+<li>Contacts techniques principaux</li>
+<li>Responsables décisionnaires</li>
+<li>Représentants légaux</li>
+<li>Contacts d'urgence 24/7</li>
+</ul>
+</li>
+<li><strong>Communication régulière avec les parties prenantes</strong><ul>
+<li>Rapports de situation périodiques</li>
+<li>Mises à jour sur l'avancement</li>
+<li>Points d'information programmés</li>
+<li>Documentation des échanges</li>
+<li>Suivi des décisions prises</li>
+</ul>
+</li>
+<li><strong>Coordination avec les relations publiques pour les communications externes</strong><ul>
+<li>Stratégie médiatique définie</li>
+<li>Messages clés validés</li>
+<li>Processus d'approbation des communiqués</li>
+<li>Gestion des réseaux sociaux</li>
+<li>Réponses aux demandes médias</li>
+<li>Surveillance de la couverture médiatique</li>
+</ul>
+</li>
+<li><strong>Notification aux autorités réglementaires si nécessaire</strong><ul>
+<li>Identification des obligations légales</li>
+<li>Délais de notification à respecter</li>
+<li>Formats de déclaration requis</li>
+<li>Documentation des communications</li>
+<li>Suivi des réponses reçues</li>
+<li>Mise à jour des autorités concernées</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-conformite-reglementaire">7. Conformité Réglementaire<a class="headerlink" href="#7-conformite-reglementaire" title="Permanent link">&para;</a></h2>
+<p>De nombreuses réglementations imposent des <strong>obligations en matière de réponse aux incidents</strong> :</p>
+<ul>
+<li><strong>Exigences typiques</strong> :</li>
+<li><strong>Notification aux autorités dans des délais spécifiques</strong><ul>
+<li>RGPD : 72 heures maximum après la découverte</li>
+<li>Notification à la CNIL en France</li>
+<li>Format de déclaration standardisé</li>
+<li>Description détaillée de l'incident</li>
+<li>Mesures de protection mises en place</li>
+<li>Évaluation des risques potentiels</li>
+</ul>
+</li>
+<li><strong>Information des personnes concernées par une violation de données</strong><ul>
+<li>Communication claire et transparente</li>
+<li>Description des données compromises</li>
+<li>Risques potentiels pour les personnes</li>
+<li>Mesures de protection recommandées</li>
+<li>Contact pour plus d'informations</li>
+<li>Délais raisonnables d'information</li>
+</ul>
+</li>
+<li><strong>Documentation des mesures de réponse</strong><ul>
+<li>Chronologie détaillée des actions</li>
+<li>Personnes impliquées dans la réponse</li>
+<li>Décisions prises et justifications</li>
+<li>Mesures correctives appliquées</li>
+<li>Résultats des actions entreprises</li>
+<li>Leçons apprises</li>
+</ul>
+</li>
+<li><strong>Conservation des preuves</strong><ul>
+<li>Durée légale de conservation</li>
+<li>Stockage sécurisé des données</li>
+<li>Accès restreint et contrôlé</li>
+<li>Copies de sauvegarde sécurisées</li>
+<li>Traçabilité des accès</li>
+<li>Protection contre l'altération</li>
+</ul>
+</li>
+<li><strong>Analyse d'impact des violations de données</strong><ul>
+<li>Évaluation de la gravité</li>
+<li>Identification des données touchées</li>
+<li>Impact sur les droits des personnes</li>
+<li>Conséquences potentielles</li>
+<li>Probabilité de récurrence</li>
+<li>Recommandations d'amélioration</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-simulation-et-exercices">8. Simulation et Exercices<a class="headerlink" href="#8-simulation-et-exercices" title="Permanent link">&para;</a></h2>
+<p>Les <strong>exercices de simulation</strong> sont essentiels pour tester et améliorer la capacité de réponse aux incidents.</p>
+<ul>
+<li><strong>Types d'exercices</strong> :</li>
+<li><strong>Exercices sur table</strong> : Discussions théoriques sur des scénarios</li>
+<li><strong>Exercices fonctionnels</strong> : Tests de composants spécifiques du plan</li>
+<li><strong>Exercices à grande échelle</strong> : Simulations complètes impliquant toute l'organisation</li>
+<li><strong>Red Team/Blue Team</strong> : Exercices où une équipe simule des attaques tandis que l'autre défend</li>
+</ul>
+<h2 id="9-automatisation-de-la-reponse">9. Automatisation de la Réponse<a class="headerlink" href="#9-automatisation-de-la-reponse" title="Permanent link">&para;</a></h2>
+<p>L'<strong>automatisation</strong> peut améliorer significativement l'efficacité de la réponse aux incidents.</p>
+<ul>
+<li><strong>Avantages</strong> :</li>
+<li>Réduction du temps de réponse</li>
+<li>Standardisation des processus</li>
+<li>Diminution des erreurs humaines</li>
+<li>
+<p>Traitement d'un plus grand volume d'incidents</p>
+</li>
+<li>
+<p><strong>Exemples d'automatisation</strong> :</p>
+</li>
+<li>Isolement automatique des endpoints compromis</li>
+<li>Blocage automatique des adresses IP malveillantes</li>
+<li>Corrélation automatique des alertes</li>
+<li>Génération de rapports d'incidents</li>
+</ul>
+<h2 id="10-metriques-et-amelioration-continue">10. Métriques et Amélioration Continue<a class="headerlink" href="#10-metriques-et-amelioration-continue" title="Permanent link">&para;</a></h2>
+<p>Les <strong>métriques</strong> permettent d'évaluer l'efficacité du processus de réponse aux incidents et de l'améliorer continuellement.</p>
+<ul>
+<li><strong>Indicateurs clés</strong> :</li>
+<li><strong>Temps moyen de détection (MTTD)</strong><ul>
+<li>Formule : MTTD = Σ(Temps de détection - Temps de début de l'incident) / Nombre total d'incidents</li>
+<li>Unité : Heures ou jours</li>
+<li>Exemple : Si 3 incidents ont été détectés en 2h, 4h et 6h, MTTD = (2+4+6)/3 = 4h</li>
+<li>Objectif : Réduire ce temps au minimum</li>
+<li>Facteurs d'influence : Outils de détection, formation du personnel</li>
+</ul>
+</li>
+<li><strong>Temps moyen de réponse (MTTR)</strong><ul>
+<li>Formule : MTTR = Σ(Temps de résolution - Temps de détection) / Nombre total d'incidents</li>
+<li>Unité : Heures ou jours</li>
+<li>Exemple : Si 3 incidents ont été résolus en 3h, 5h et 7h, MTTR = (3+5+7)/3 = 5h</li>
+<li>Objectif : Minimiser le temps de réponse</li>
+<li>Facteurs d'influence : Procédures, ressources disponibles</li>
+</ul>
+</li>
+<li><strong>Pourcentage d'incidents résolus</strong><ul>
+<li>Formule : (Nombre d'incidents résolus / Nombre total d'incidents) × 100</li>
+<li>Unité : Pourcentage</li>
+<li>Exemple : 45 incidents résolus sur 50 = (45/50) × 100 = 90%</li>
+<li>Objectif : Maximiser le taux de résolution</li>
+<li>Benchmark : Viser &gt;95%</li>
+</ul>
+</li>
+<li><strong>Coût moyen par incident</strong><ul>
+<li>Formule : Σ(Coûts directs + Coûts indirects) / Nombre total d'incidents</li>
+<li>Composants : Main d'œuvre, outils, pertes d'activité, impact réputation</li>
+<li>Exemple : Si 3 incidents ont coûté 1000€, 2000€ et 3000€, moyenne = 2000€</li>
+<li>Objectif : Réduire les coûts par incident</li>
+<li>Facteurs : Gravité, durée, ressources nécessaires</li>
+</ul>
+</li>
+<li><strong>Taux de récurrence des incidents</strong><ul>
+<li>Formule : (Nombre d'incidents récurrents / Nombre total d'incidents) × 100</li>
+<li>Unité : Pourcentage</li>
+<li>Exemple : 5 incidents récurrents sur 50 = (5/50) × 100 = 10%</li>
+<li>Objectif : Minimiser les récurrences</li>
+<li>Actions : Analyse des causes profondes</li>
+</ul>
+</li>
+<li><strong>Efficacité des contrôles de sécurité</strong><ul>
+<li>Formule : (Incidents bloqués / Total des tentatives d'incidents) × 100</li>
+<li>Mesures complémentaires : Faux positifs, faux négatifs</li>
+<li>Exemple : 90 incidents bloqués sur 100 = 90% d'efficacité</li>
+<li>Objectif : Maximiser l'efficacité des contrôles</li>
+<li>Évaluation : Tests réguliers et audits</li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "search.highlight", "search.share", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copi\u00e9 dans le presse-papier", "clipboard.copy": "Copier dans le presse-papier", "search.result.more.one": "1 de plus sur cette page", "search.result.more.other": "# de plus sur cette page", "search.result.none": "Aucun document trouv\u00e9", "search.result.one": "1 document trouv\u00e9", "search.result.other": "# documents trouv\u00e9s", "search.result.placeholder": "Taper pour d\u00e9marrer la recherche", "search.result.term.missing": "Non trouv\u00e9", "select.version": "S\u00e9lectionner la version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

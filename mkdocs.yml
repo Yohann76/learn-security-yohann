@@ -1,5 +1,5 @@
 site_name: Learn security
-site_description: Documentation for learn security
+site_description: Documentation pour apprendre la cybersécurité
 theme:
   name: material
   language: fr
@@ -20,31 +20,105 @@ markdown_extensions:
   - toc:
       permalink: true
 
-# Todo refactor
 nav:
-  - Introduction: 
-    - index.md
-  - Fichiers:
-    - navigation/navigation.md
-  - Permissions/User:
-    - permissions/permissions.md
-  - Processus:
-    - processus/processus.md
-  - Système/Disques:
-    - gestion/gestion.md
-  - Paquets:
-    - paquets/paquets.md
-  - Shell:
-    - shell/shell.md
-  - Réseau:
-    - reseau/reseau.md
-  - Sécurité:
-    - securite/securite.md
-  - Administration:
-    - avancé/avancé.md
-  - Projets:
-    - projets/projets.md
-  - Plus loin:
-    - next/next.md
+  - Accueil: index.md
 
+  - "1. L'environnement":
+    - "Introduction":
+      - Avant de commencer: 01-environnement/001-Introduction/001-before-starting.md
+      - Enjeux: 01-environnement/001-Introduction/008-securite-enjeux.md
+      - Système d'information: 01-environnement/001-Introduction/010-systeme-information.md
+      - Définition sécurité informatique: 01-environnement/001-Introduction/015-securite-informatique-definition.md
+      - "TP Risques SI": 01-environnement/001-Introduction/016-tp-risque-si.md
+      - Pourquoi la sécurité: 01-environnement/001-Introduction/020-pourquoi-la-securite.md
+      - Les causes d'insécurité: 01-environnement/001-Introduction/025-les-causes-dinsecurite.md
+    - Cadre juridique:
+      - Un cadre juridique: 01-environnement/003-cadre-juridique/040-cadre-juridique.md
+      - Les risques juridiques: 01-environnement/003-cadre-juridique/050-risques-juridique.md
+    - Métiers de la sécurité:
+      - Métier de la sécurité: 01-environnement/004-metiers-securite/050-metier-de-la-securite.md
+      - Parcours et certifications: 01-environnement/004-metiers-securite/051-parcours-et-certification.md
+    - Gouvernance SI:
+      - Gouvernance SI: 01-environnement/005-gouvernance-si/060-gouvernance-si.md
+      - Responsabilités SI: 01-environnement/005-gouvernance-si/responsabilite-si.md
+    - Aller plus loin: 01-environnement/006-aller-plus-loin/100-aller-plus-loin.md
 
+  - "2. Les attaques":
+    - Introduction aux attaques:
+      - La réalité des attaques: 02-attaques/001-introduction-attaques/001-la-realite-des-attaques.md
+      - Ingénierie sociale: 02-attaques/001-introduction-attaques/003-ingenierie-social.md
+      - Origine et cible: 02-attaques/001-introduction-attaques/020-origine-et-cible.md
+      - Objectifs des attaques: 02-attaques/001-introduction-attaques/025-les-objectifs-des-attaques.md
+      - Acteurs menaçants: 02-attaques/001-introduction-attaques/026-acteurs-menacants.md
+    - Vecteurs et vulnérabilités:
+      - Les vecteurs d'attaques: 02-attaques/002-vecteurs-vulnerabilites/030-les-vecteurs-des-attaques.md
+      - Les vulnérabilités: 02-attaques/002-vecteurs-vulnerabilites/035-les-vulnérabilitées.md
+      - "TP et démo vulnérabilités": 02-attaques/002-vecteurs-vulnerabilites/037-demo-vulnerabilite.md
+      - "TP vulnérabilité IA": 02-attaques/002-vecteurs-vulnerabilites/038-tp-vuln-ia.md
+    - Types et méthodologies:
+      - Méthodologie des attaques: 02-attaques/003-types-methodologies/040-methodologie-des-attaques.md
+      - Reverse Engineering: 02-attaques/003-types-methodologies/042-reverse-engineering.md
+      - OSINT: 02-attaques/003-types-methodologies/045-osint.md
+    - Aller plus loin (attaques):
+      - Aller plus loin: 02-attaques/004-aller-plus-loin/100-aller-plus-loin.md
+      - Veille en sécurité: 02-attaques/004-aller-plus-loin/101-veille-securite.md
+
+  - "3. Les protections":
+    - Principes fondamentaux:
+      - L'impératif de la défense: 03-protections/001-principes-fondamentaux/001-limperatif-de-la-defense.md
+      - Principes de la défense: 03-protections/001-principes-fondamentaux/010-principes-fondamentaux-de-la-defense.md
+    - Gestion des risques:
+      - Les risques: 03-protections/002-gestion-risques/030-gestion-des-risques.md
+      - "TP Évaluation des risques": 03-protections/002-gestion-risques/031-tp-evaluation-risques.md
+      - "TP Traitement des risques": 03-protections/002-gestion-risques/032-tp-traitement-des-risques.md
+      - Méthodes de gestion des risques: 03-protections/002-gestion-risques/035-methode-de-gestion-des-risques.md
+    - Sécurité des systèmes:
+      - Antivirus: 03-protections/003-securite-systemes/043-antivirus.md
+      - Systèmes d'exploitation: 03-protections/003-securite-systemes/044-systeme-d'exploitation.md
+      - Mots de passe: 03-protections/003-securite-systemes/045-mots-de-passe.md
+      - Pare-feu, WAF, Proxy, NAC: 03-protections/003-securite-systemes/048-securite-acces-firewall.md
+      - Réseaux et sécurité: 03-protections/003-securite-systemes/049-reseaux-securite.md
+    - Conformité et réglementation:
+      - RGPD: 03-protections/004-conformite-reglementaire/050-rgpd.md
+      - Normes ISO 27000: 03-protections/004-conformite-reglementaire/060-famille-des-normes-iso-2700.md
+      - CCPA: 03-protections/004-conformite-reglementaire/065-ccpa.md
+      - Autres lois: 03-protections/004-conformite-reglementaire/070-autres-lois.md
+    - Tests et validation:
+      - Bug bounty: 03-protections/005-tests-validation/046-bug-bounty.md
+      - Tests d'intrusion: 03-protections/005-tests-validation/047-tests-intrusions.md
+    - Surveillance et incident:
+      - Monitoring: 03-protections/006-surveillance-incident/070-monitoring.md
+      - Incident et réponse: 03-protections/006-surveillance-incident/080-incident-et-reponse.md
+    - Aller plus loin (protections): 03-protections/007-aller-plus-loin/100-aller-plus-loin.md
+
+  - "4. Cryptographie":
+    - Introduction:
+      - Protéger les communications: 04-cryptographie/001-introduction-cryptographie/001-proteger-les-communications.md
+      - Concepts: 04-cryptographie/001-introduction-cryptographie/010-concepts-de-cryptographie.md
+    - Histoire et types:
+      - Histoire: 04-cryptographie/002-histoire-types/015-histoire-cryptographie.md
+      - Types de cryptographie: 04-cryptographie/002-histoire-types/020-types-de-cryptographie.md
+    - Algorithmes de chiffrement:
+      - AES: 04-cryptographie/003-exemple-algo-chiffrement/001-aes.md
+      - RSA: 04-cryptographie/003-exemple-algo-chiffrement/002-rsa.md
+    - Algorithmes de hachage:
+      - MD5: 04-cryptographie/004-exemple-algo-hash/001-md5.md
+      - SHA: 04-cryptographie/004-exemple-algo-hash/002-sha.md
+      - Bcrypt: 04-cryptographie/004-exemple-algo-hash/003-bcrypt.md
+      - Argon2: 04-cryptographie/004-exemple-algo-hash/004-argon2.md
+    - Applications et méthodes:
+      - Applications: 04-cryptographie/005-applications-methodes/030-applications-de-la-cryptographie.md
+      - Méthodes d'authentification: 04-cryptographie/005-applications-methodes/035-methodes-authentification.md
+      - "TP Cryptographie simple": 04-cryptographie/005-applications-methodes/0-60-tp-cryptographie-simple.md
+    - Défis et tendances:
+      - Attaques sur la cryptographie: 04-cryptographie/006-defis-tendances/030-attaque-sur-la-cryptographie.md
+      - Défis de la cryptographie: 04-cryptographie/006-defis-tendances/040-defis-de-la-cryptographie.md
+      - Blockchain: 04-cryptographie/006-defis-tendances/099-blockchain.md
+
+  - Démonstrations:
+    - Hash: demo/demo-hash.md
+    - RSA (OpenSSL): demo/demo-rsa.md
+    - iptables: demo/demo-iptables.md
+    - Nmap: demo/demo-nmap.md
+    - Reverse: demo/demo-reverse.md
+    - FTP trame (Wireshark): demo/demo-ftp-trame.md

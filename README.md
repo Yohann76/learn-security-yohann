@@ -6,7 +6,7 @@ run wiki with docker:
 docker compose up
 ```
 
-Available in http://localhost:8000
+Available in http://localhost:8004
 
 ## Available with Github Page (soon)
 
